@@ -67,8 +67,8 @@ The server console should display lines like the following:
 
 The application will be available at the following resources: 
 
-* (http://localhost:8080/fuse-camel-restlet-eap/services/hello/sayhello)
-* (http://localhost:8080/fuse-camel-restlet-eap/services/hello/greet)
+* [http://localhost:8080/fuse-camel-restlet-eap/services/hello/sayhello]
+* [http://localhost:8080/fuse-camel-restlet-eap/services/hello/greet]
 
 
 ### Undeploying the application
