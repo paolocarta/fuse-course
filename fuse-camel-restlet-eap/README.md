@@ -3,9 +3,8 @@
 This is a template Apache Camel RESTful web-service for the JBoss EAP Camel subsystem. 
 
 This project is setup to allow you to create an Apache Camel application (Spring or Java DSLs are in use), which can be deployed 
-to an application server running the JBoss EAP Camel subsystem. An example Spring XML Camel Route as well as 
-[Java DSL](src/main/java/lv/jbossfuse/course/restlet/MyCamelContextBuilder.java) one have been created 
-for you.
+to an application server running the JBoss EAP Camel subsystem. An example [Spring XML](src/main/webapp/META-INF/jboss-camel-context.xml)
+Camel Route as well as [Java DSL](src/main/java/lv/jbossfuse/course/restlet/MyCamelContextBuilder.java) one have been created for you.
 
 
 ### Prerequisites
