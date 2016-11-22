@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+    
+    <bean class="lv.jbossfuse.course.restlet.MyHelloWorldServiceProvider" id="helloWorldServiceBean"/>
+    
+    <camelContext id="my-spring-context" xmlns="http://camel.apache.org/schema/spring">
+        <route id="_route1">
+            <from id="_from1" uri="direct:start"/> <!-- see also: https://wildflyext.gitbooks.io/wildfly-camel/content/javaee/jaxrs.html -->
+            <log id="_log1" message="Processing CamelProxy route... method: ${body.method.name}"/>
+            <choice id="_choice1">
+                <when id="_when1">
+                    <simple>${body.method.name} == 'greet'</simple>
+                    <to id="_to1" uri="direct:invokeGreet"/>
+                </when>
+                <when id="_when2">
+                    <simple>${body.method.name} == 'sayHello'</simple>
+                    <to id="_to2" uri="direct:invokeSayHello"/>
+                </when>
+            </choice>
+        </route>
+        <route id="invokeSayHello">
+            <from id="_from2" uri="direct:invokeSayHello"/>
+            <bean id="_bean2" method="sayHello" ref="helloWorldServiceBean"/>            
+        </route>
+        <route id="invokeGreet">
+            <from id="_from3" uri="direct:invokeGreet"/>
+            <bean id="_bean3" method="greet" ref="helloWorldServiceBean"/>
+        </route>
+    </camelContext>
+</beans>
