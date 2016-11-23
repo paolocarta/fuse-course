@@ -58,7 +58,7 @@ The server console should display lines like the following:
 (MSC service thread 1-16) Bound camel naming object: java:jboss/camel/context/my-spring-context
 (MSC service thread 1-16) Route: _route1 started and consuming from: Endpoint[direct://start]
 (MSC service thread 1-16) Route: invokeSayHello started and consuming from: Endpoint[direct://invokeSayHello]
-(MSC service thread 1-1) Route: invokeGreet started and consuming from: Endpoint[direct://invokeGreet]
+(MSC service thread 1-16) Route: invokeGreet started and consuming from: Endpoint[direct://invokeGreet]
 (MSC service thread 1-16) Total 3 routes, of which 3 is started
 ```
 
@@ -84,6 +84,10 @@ Apache Camel documentation
 
 http://camel.apache.org/
 
-Pavel Samolysov's Website
+JAX-RS Tutorial
 
-http://psamolysov.blogspot.com/
+http://www.mkyong.com/tutorials/jax-rs-tutorials/
+
+Pavel Samolysov's Blog (Russian)
+
+http://samolisov.blogspot.com/
