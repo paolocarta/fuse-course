@@ -13,8 +13,8 @@
   <properties>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.6</maven.compiler.source>
-    <maven.compiler.target>1.6</maven.compiler.target>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
     <camel.version>2.17.0.redhat-630187</camel.version>   
     <jboss.bom.eap.version>6.4.0.GA</jboss.bom.eap.version>    
     <junit.version>4.11</junit.version>
