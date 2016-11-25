@@ -1,4 +1,4 @@
-package org.test;
+package lv.jbossfuse.course.ws.test;
 
 import java.io.File;
 

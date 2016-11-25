@@ -5,7 +5,8 @@ This is a template Apache Camel SOAP Web-Service for the JBoss EAP Camel subsyst
 This project is setup to allow you to create a Apache Camel application (Java DSL is in use), which can be deployed to an 
 application server running the JBoss EAP Camel subsystem. An example 
 [Java DSL](src/main/java/lv/jbossfuse/course/ws/MyCourseCamelContextBuilder.java) Camel Route has been created for you, together
-with an Arquillian integration test. The application also demonstrates how to deal with the filter and beans API.
+with an Arquillian [integration test](src/test/java/lv/jbossfuse/course/ws/test/MyCourseEndpointTest.java). The application also 
+demonstrates how to deal with the filter and beans API.
 
 
 ### Prerequisites
