@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="6e9ca43b-bc64-4922-8134-0e2a521773e8" activeEnvironment="Default" name="MyCourseEndpointService" soapui-version="5.2.1" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="4619eab9-867c-40ff-b9cc-5a923a9a14ae" wsaVersion="NONE" name="MyCourseEndpointServiceSoapBinding" type="wsdl" bindingName="{http://ws.course.jbossfuse.lv/}MyCourseEndpointServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/fuse-camel-ws-eap/MyCourseEndpointService?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/fuse-camel-ws-eap/MyCourseEndpointService?wsdl"><con:part><con:url>http://localhost:8080/fuse-camel-ws-eap/MyCourseEndpointService?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="MyCourseEndpointService" targetNamespace="http://ws.course.jbossfuse.lv/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://ws.course.jbossfuse.lv/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http">
+  <wsdl:types>
+    <xs:schema elementFormDefault="unqualified" targetNamespace="http://ws.course.jbossfuse.lv/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="getHelloWorldAsString" type="tns:getHelloWorldAsString"/>
+      <xs:element name="getHelloWorldAsStringResponse" type="tns:getHelloWorldAsStringResponse"/>
+      <xs:complexType name="getHelloWorldAsString">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="name" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getHelloWorldAsStringResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getHelloWorldAsString">
+    <wsdl:part element="tns:getHelloWorldAsString" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getHelloWorldAsStringResponse">
+    <wsdl:part element="tns:getHelloWorldAsStringResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="MyCourseEndpoint">
+    <wsdl:operation name="getHelloWorldAsString">
+      <wsdl:input message="tns:getHelloWorldAsString" name="getHelloWorldAsString"></wsdl:input>
+      <wsdl:output message="tns:getHelloWorldAsStringResponse" name="getHelloWorldAsStringResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MyCourseEndpointServiceSoapBinding" type="tns:MyCourseEndpoint">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getHelloWorldAsString">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getHelloWorldAsString">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getHelloWorldAsStringResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MyCourseEndpointService">
+    <wsdl:port binding="tns:MyCourseEndpointServiceSoapBinding" name="MyCourseEndpointPort">
+      <soap:address location="http://localhost:8080/fuse-camel-ws-eap/MyCourseEndpointService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/fuse-camel-ws-eap/MyCourseEndpointService</con:endpoint></con:endpoints><con:operation id="1254d15b-bc9f-42e2-a4af-c61631bd45d4" isOneWay="false" action="" name="getHelloWorldAsString" bindingOperationName="getHelloWorldAsString" type="Request-Response" outputName="getHelloWorldAsStringResponse" inputName="getHelloWorldAsString" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="f38c3933-ce9f-4a9c-9032-0108047b63a1" name="Request Pavel"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/fuse-camel-ws-eap/MyCourseEndpointService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ws="http://ws.course.jbossfuse.lv/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <ws:getHelloWorldAsString>\r
+         <name>Pavel</name>\r
+      </ws:getHelloWorldAsString>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://ws.course.jbossfuse.lv/MyCourseEndpoint/getHelloWorldAsString"/><con:wsrmConfig version="1.2"/></con:call><con:call id="ba8a1e06-b1b0-4c92-aafa-6317d9ea6edd" name="Request Kermit"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/fuse-camel-ws-eap/MyCourseEndpointService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ws="http://ws.course.jbossfuse.lv/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <ws:getHelloWorldAsString>\r
+         <name>Kermit</name>\r
+      </ws:getHelloWorldAsString>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://ws.course.jbossfuse.lv/MyCourseEndpoint/getHelloWorldAsString"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/></con:soapui-project>

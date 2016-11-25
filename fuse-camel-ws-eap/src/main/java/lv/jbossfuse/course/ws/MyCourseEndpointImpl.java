@@ -19,7 +19,7 @@ public class MyCourseEndpointImpl implements MyCourseEndpoint {
 	
 	@Inject
 	@Uri("direct:ws")
-	private Endpoint ws;	
+	private Endpoint ws;
 	
 	@Override
 	public String getHelloWorldAsString(String name) {		   
