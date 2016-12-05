@@ -33,7 +33,7 @@ archetype (if you don't include the version, you archetype creation may fail wit
   -DarchetypeGroupId=lv.jbossfuse.course                        \
   -DarchetypeArtifactId=fuse-camel-course-eap-spring-archetype  \
   -DarchetypeVersion=1.0-SNAPSHOT                               \
-  -DgroupId=<my.groupid>                                        \
+  -DgroupId=<my-groupId>                                        \
   -DartifactId=<my-artifactId>
 ```
 
