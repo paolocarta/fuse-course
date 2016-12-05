@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:cxf="http://camel.apache.org/schema/cxf"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd      http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">
+    <bean class="lv.jbossfuse.course.flow.integration.MyBean" id="helloBean"/>
+    <cxf:rsClient
+        address="http://localhost:8080/fuse-camel-services-flow-eap"
+        id="phoneBook" loggingFeatureEnabled="true"/>
+    <camelContext id="spring-context" xmlns="http://camel.apache.org/schema/spring">
+        <route id="_route1">
+            <from id="_from1" uri="direct:start"/>
+            <setHeader headerName="CamelHttpPath" id="_setHeader1">
+                <simple>/services/phonebook/territory/${body}</simple>
+            </setHeader>
+            <setHeader headerName="CamelHttpMethod" id="_setHeader2">
+                <constant>GET</constant>
+            </setHeader>
+            <to id="_territory_service" uri="cxfrs:bean:phoneBook"/>
+            <setBody id="_setBody1">
+                <jsonpath suppressExceptions="true">territory</jsonpath>
+            </setBody>
+            <!-- bean id="_bean1" ref="helloBean"/-->
+        </route>
+    </camelContext>
+</beans>
