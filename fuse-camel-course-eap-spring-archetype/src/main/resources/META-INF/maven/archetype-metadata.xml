@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archetype-descriptor name="fuse-camel-course-eap-spring-archetype">
+  <requiredProperties>
+    <requiredProperty key="groupId">
+      <defaultValue>lv.jbossfuse.course</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="version">
+      <defaultValue>1.0-SNAPSHOT</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="camel-version">
+      <defaultValue>2.17.0.redhat-630187</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="jboss-eap-version">
+      <defaultValue>6.4.0.GA</defaultValue>
+    </requiredProperty>
+  </requiredProperties>
+  <fileSets>
+    <fileSet filtered="true" packaged="true" encoding="UTF-8">
+      <directory>src/main/java</directory>
+      <includes>
+        <include>**/*.java</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="true" packaged="false" encoding="UTF-8">
+      <directory>src/main/webapp</directory>
+      <includes>
+        <include>META-INF/*</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="true" packaged="true" encoding="UTF-8">
+      <directory>src/test/java</directory>
+      <includes>
+        <include>**/*.java</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="false" packaged="fale">
+      <directory>src/test/resources</directory>
+      <includes>
+        <include>arquillian.xml</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="false" packaged="false">
+      <directory></directory>
+      <includes>
+        <include>README.md</include>
+        <include>.gitignore</include>
+      </includes>
+    </fileSet>
+  </fileSets>
+</archetype-descriptor>
