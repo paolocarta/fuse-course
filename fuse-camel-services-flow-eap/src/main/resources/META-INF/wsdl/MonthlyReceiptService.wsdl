@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://monthlyreceipt.services.flow.course.jbossfuse.lv/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="SibNskMonthlyReceiptService" targetNamespace="http://monthlyreceipt.services.flow.course.jbossfuse.lv/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://monthlyreceipt.services.flow.course.jbossfuse.lv/" elementFormDefault="unqualified" targetNamespace="http://monthlyreceipt.services.flow.course.jbossfuse.lv/" version="1.0">
+
+  <xs:element name="listCurrentMonthReceipts" type="tns:listCurrentMonthReceipts"/>
+
+  <xs:element name="listCurrentMonthReceiptsResponse" type="tns:listCurrentMonthReceiptsResponse"/>
+
+  <xs:element name="monthly-receipt" type="tns:monthlyReceipt"/>
+
+  <xs:element name="service-receipt" type="tns:receiptItem"/>
+
+  <xs:complexType name="listCurrentMonthReceipts">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="user" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="listCurrentMonthReceiptsResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" ref="tns:monthly-receipt"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="monthlyReceipt">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="month-code" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="service-receipts" type="tns:receiptItem"/>
+      <xs:element minOccurs="0" name="user" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="receiptItem">
+    <xs:simpleContent>
+      <xs:extension base="xs:double">
+        <xs:attribute name="service" type="xs:string"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="listCurrentMonthReceipts">
+    <wsdl:part element="tns:listCurrentMonthReceipts" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="listCurrentMonthReceiptsResponse">
+    <wsdl:part element="tns:listCurrentMonthReceiptsResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="MonthlyReceiptService">
+    <wsdl:operation name="listCurrentMonthReceipts">
+      <wsdl:input message="tns:listCurrentMonthReceipts" name="listCurrentMonthReceipts">
+    </wsdl:input>
+      <wsdl:output message="tns:listCurrentMonthReceiptsResponse" name="listCurrentMonthReceiptsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SibNskMonthlyReceiptServiceSoapBinding" type="tns:MonthlyReceiptService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="listCurrentMonthReceipts">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="listCurrentMonthReceipts">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="listCurrentMonthReceiptsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SibNskMonthlyReceiptService">
+    <wsdl:port binding="tns:SibNskMonthlyReceiptServiceSoapBinding" name="SibNskMonthlyReceiptServicePort">
+      <soap:address location="http://localhost:8080/fuse-camel-services-flow-eap/SibNskMonthlyReceiptService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

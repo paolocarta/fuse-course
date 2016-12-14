@@ -175,6 +175,69 @@
         </configuration>
       </plugin>
       <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jaxws-maven-plugin</artifactId>
+        <version>1.12</version>
+        <configuration>
+          <wsdlDirectory>${basedir}/src/main/resources/META-INF/wsdl</wsdlDirectory>
+          <sourceDestDir>${basedir}/target/generated-sources/main/java</sourceDestDir>
+          <packageName>lv.jbossfuse.course.monthlyreceiptservice</packageName>
+          <wsdlLocation>MonthlyReceiptService.wsdl</wsdlLocation>
+          <quiet>false</quiet>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>wsimport</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>      
+      <plugin>
+        <!-- Without the plugin, Eclipse doesn't include generated sources dirs in
+             the project.
+         -->
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>1.9</version>
+        <executions>
+          <execution>
+            <id>add-jaxb-gerated-sources</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>add-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>${basedir}/target/generated-sources/main/java</source>
+              </sources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.0.2</version>
+        <executions>
+          <execution>
+            <id>copy-wsdl</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${basedir}/target/generated-sources/main/java/lv/jbossfuse/course/monthlyreceiptservice</outputDirectory>
+              <resources>          
+                <resource>
+                  <directory>src/main/resources/META-INF/wsdl</directory>
+                  <filtering>false</filtering>
+                </resource>
+              </resources>              
+            </configuration>            
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <groupId>org.wildfly.plugins</groupId>
         <artifactId>wildfly-maven-plugin</artifactId>
         <version>1.0.2.Final</version>
@@ -184,6 +247,14 @@
         </configuration>
       </plugin>
     </plugins>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <excludes>
+          <exclude>META-INF/**</exclude>
+        </excludes>
+      </resource>
+    </resources>
     <testResources>
       <testResource>
         <filtering>true</filtering>
