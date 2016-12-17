@@ -7,8 +7,8 @@
             <value>endpoints.properties</value>
         </property>
     </bean>    
-    <bean
-        class="org.apache.camel.dataformat.soap.name.ServiceInterfaceStrategy" id="myNameStrategy">
+    <bean class="org.apache.camel.dataformat.soap.name.ServiceInterfaceStrategy" 
+          id="monthlyReceiptNameStrategy">
         <constructor-arg value="lv.jbossfuse.course.monthlyreceiptservice.MonthlyReceiptService"/>
         <constructor-arg value="true"/>
     </bean>
@@ -37,13 +37,18 @@
             <entry key="dataFormat" value="MESSAGE"/>
         </cxf:properties>
     </cxf:cxfEndpoint>
-    <camelContext id="spring-context" xmlns="http://camel.apache.org/schema/spring">
+    <camelContext id="spring-context" xmlns="http://camel.apache.org/schema/spring">    
+        <dataFormats>
+            <soapjaxb id="_monthlyreceipt_jaxb" version="1.1"
+                      contextPath="lv.jbossfuse.course.monthlyreceiptservice"
+                      elementNameStrategyRef="monthlyReceiptNameStrategy"/>            
+        </dataFormats>    
         <route id="_route1" streamCache="true">    
             <from id="_from1" uri="direct:start"/>                       
-            <setHeader headerName="CamelHttpPath" id="_setHeader1">
+            <setHeader headerName="CamelHttpPath" id="_setHeaderPath">
                 <simple>${body}</simple>
             </setHeader>
-            <setHeader headerName="CamelHttpMethod" id="_setHeader2">
+            <setHeader headerName="CamelHttpMethod" id="_setHeaderMethod">
                 <constant>GET</constant>
             </setHeader>
             <to id="_territory_service" uri="cxfrs:bean:phoneBook"/>            
@@ -53,16 +58,12 @@
             <setProperty propertyName="territory" id="_setPropertyId">
                 <jsonpath suppressExceptions="true" trim="true">territory</jsonpath>
             </setProperty>
-            <setBody id="setIDasBody">
+            <setBody id="_setIDasBody">
                 <simple>${property[id]}</simple>
             </setBody>
-            <!--  TODO: routing -->
+            <!--  TODO: routing -->                        
             <convertBodyTo type="lv.jbossfuse.course.monthlyreceiptservice.ListCurrentMonthReceipts"/>
-            <marshal id="_marshal1">
-                <soapjaxb
-                    contextPath="lv.jbossfuse.course.monthlyreceiptservice"
-                    elementNameStrategyRef="myNameStrategy" version="1.1"/>
-            </marshal>
+            <marshal id="_monthlyreceipt_marshal" ref="_monthlyreceipt_jaxb"/>            
             <to id="_monthly_report" uri="cxf:bean:serviceEndpoint"/>            
         </route>
     </camelContext>
