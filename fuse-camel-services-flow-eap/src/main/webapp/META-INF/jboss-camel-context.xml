@@ -1,25 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:cxf="http://camel.apache.org/schema/cxf"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd      http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">
-    <bean class="lv.jbossfuse.course.flow.integration.MyBean" id="helloBean"/>
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd      http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">    
+    <bean
+        class="org.apache.camel.dataformat.soap.name.ServiceInterfaceStrategy" id="myNameStrategy">
+        <constructor-arg value="lv.jbossfuse.course.monthlyreceiptservice.MonthlyReceiptService"/>
+        <constructor-arg value="true"/>
+    </bean>
+    <bean class="org.apache.cxf.interceptor.LoggingOutInterceptor" 
+          id="loggingOutInterceptor">        
+        <constructor-arg value="write"/>
+    </bean>
+    <bean class="org.apache.cxf.interceptor.LoggingInInterceptor" 
+          id="loggingInInterceptor">        
+        <constructor-arg value="receive"/>
+    </bean>    
     <cxf:rsClient
-        address="http://localhost:8080/fuse-camel-services-flow-eap"
+        address="http://localhost:8080/fuse-camel-services-flow-eap/services/phonebook/territory/"
         id="phoneBook" loggingFeatureEnabled="true"/>
+    <cxf:cxfEndpoint
+        address="http://localhost:8080/fuse-camel-services-flow-eap/SibNskMonthlyReceiptService" 
+        id="serviceEndpoint">
+        <cxf:outInterceptors>
+            <ref bean="loggingOutInterceptor"/>
+        </cxf:outInterceptors>
+        <cxf:inInterceptors>
+            <ref bean="loggingInInterceptor"/>
+        </cxf:inInterceptors>        
+        <cxf:properties>
+            <entry key="wsdURL" value="http://localhost:8080/fuse-camel-services-flow-eap/SibNskMonthlyReceiptService?wsdl"/>
+            <entry key="dataFormat" value="MESSAGE"/>
+        </cxf:properties>
+    </cxf:cxfEndpoint>
     <camelContext id="spring-context" xmlns="http://camel.apache.org/schema/spring">
-        <route id="_route1">
-            <from id="_from1" uri="direct:start"/>
+        <route id="_route1" streamCache="true">    
+            <from id="_from1" uri="direct:start"/>            
             <setHeader headerName="CamelHttpPath" id="_setHeader1">
-                <simple>/services/phonebook/territory/${body}</simple>
+                <simple>${body}</simple>
             </setHeader>
             <setHeader headerName="CamelHttpMethod" id="_setHeader2">
                 <constant>GET</constant>
             </setHeader>
-            <to id="_territory_service" uri="cxfrs:bean:phoneBook"/>
-            <setBody id="_setBody1">
-                <jsonpath suppressExceptions="true">territory</jsonpath>
+            <to id="_territory_service" uri="cxfrs:bean:phoneBook"/>            
+            <setProperty propertyName="id" id="_setPropertyId">
+                <jsonpath suppressExceptions="true" trim="true">id</jsonpath>
+            </setProperty>
+            <setProperty propertyName="territory" id="_setPropertyId">
+                <jsonpath suppressExceptions="true" trim="true">territory</jsonpath>
+            </setProperty>
+            <setBody id="setIDasBody">
+                <simple>${property[id]}</simple>
             </setBody>
-            <!-- bean id="_bean1" ref="helloBean"/-->
+            <!--  TODO: routing -->
+            <convertBodyTo type="lv.jbossfuse.course.monthlyreceiptservice.ListCurrentMonthReceipts"/>
+            <marshal id="_marshal1">
+                <soapjaxb
+                    contextPath="lv.jbossfuse.course.monthlyreceiptservice"
+                    elementNameStrategyRef="myNameStrategy" version="1.1"/>
+            </marshal>
+            <to id="_monthly_report" uri="cxf:bean:serviceEndpoint"/>            
         </route>
     </camelContext>
 </beans>
