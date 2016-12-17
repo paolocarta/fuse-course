@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:cxf="http://camel.apache.org/schema/cxf"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd      http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">    
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd      http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location">
+            <value>endpoints.properties</value>
+        </property>
+    </bean>    
     <bean
         class="org.apache.camel.dataformat.soap.name.ServiceInterfaceStrategy" id="myNameStrategy">
         <constructor-arg value="lv.jbossfuse.course.monthlyreceiptservice.MonthlyReceiptService"/>
@@ -16,10 +21,10 @@
         <constructor-arg value="receive"/>
     </bean>    
     <cxf:rsClient
-        address="http://localhost:8080/fuse-camel-services-flow-eap/services/phonebook/territory/"
+        address="${endpoint.phonebookservice}"
         id="phoneBook" loggingFeatureEnabled="true"/>
     <cxf:cxfEndpoint
-        address="http://localhost:8080/fuse-camel-services-flow-eap/SibNskMonthlyReceiptService" 
+        address="${endpoint.monthlyreceiptservice}" 
         id="serviceEndpoint">
         <cxf:outInterceptors>
             <ref bean="loggingOutInterceptor"/>
@@ -28,13 +33,13 @@
             <ref bean="loggingInInterceptor"/>
         </cxf:inInterceptors>        
         <cxf:properties>
-            <entry key="wsdURL" value="http://localhost:8080/fuse-camel-services-flow-eap/SibNskMonthlyReceiptService?wsdl"/>
+            <entry key="wsdURL" value="${endpoint.monthlyreceiptservice}?wsdl"/>
             <entry key="dataFormat" value="MESSAGE"/>
         </cxf:properties>
     </cxf:cxfEndpoint>
     <camelContext id="spring-context" xmlns="http://camel.apache.org/schema/spring">
         <route id="_route1" streamCache="true">    
-            <from id="_from1" uri="direct:start"/>            
+            <from id="_from1" uri="direct:start"/>                       
             <setHeader headerName="CamelHttpPath" id="_setHeader1">
                 <simple>${body}</simple>
             </setHeader>
