@@ -59,8 +59,8 @@
             <setBody id="_setIDasBody">
                 <simple>${property[id]}</simple>
             </setBody>
-            <convertBodyTo id="_convertBodyTo1" type="lv.jbossfuse.course.monthlyreceiptservice.ListCurrentMonthReceipts"/>
             <!--  TODO: routing -->
+            <convertBodyTo id="_convertBodyTo1" type="lv.jbossfuse.course.monthlyreceiptservice.ListCurrentMonthReceipts"/>
             <marshal id="_monthlyreceipt_marshal" ref="_monthlyreceipt_jaxb"/>
             <to id="_monthly_report" uri="cxf:bean:serviceEndpoint"/>
             <setBody id="_setBodyToPaiload">
