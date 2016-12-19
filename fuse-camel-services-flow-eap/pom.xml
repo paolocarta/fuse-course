@@ -56,13 +56,16 @@
       <version>${camel.version}</version>
       <scope>provided</scope>      
     </dependency>
-    <!-- 
     <dependency>
-    <groupId>javax.xml.ws</groupId>
-    <artifactId>jaxws-api</artifactId>
-    <version>2.2.8</version>
-</dependency>
--->
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-xmljson</artifactId>
+      <version>${camel.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>xom</groupId>
+      <artifactId>xom</artifactId>
+      <version>1.2.5</version>
+    </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-core</artifactId>
@@ -188,30 +191,6 @@
           <failOnMissingWebXml>false</failOnMissingWebXml>
         </configuration>
       </plugin>
-      <!--
-      <plugin>
-    <groupId>org.apache.cxf</groupId>
-    <artifactId>cxf-codegen-plugin</artifactId>
-    <version>${cxf.version}</version>
-    <executions>
-        <execution>
-            <id>generate-sources</id>
-            <phase>generate-sources</phase>
-            <configuration>
-                <sourceRoot>${basedir}/target/generated-sources/main/java</sourceRoot>
-                <wsdlOptions>
-                    <wsdlOption>
-                        <wsdl>${basedir}/src/main/resources/META-INF/wsdl/MonthlyReceiptService.wsdl</wsdl>
-                    </wsdlOption>
-                </wsdlOptions>
-            </configuration>
-            <goals>
-                <goal>wsdl2java</goal>
-            </goals>
-        </execution>
-    </executions>
-</plugin>
--->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>jaxws-maven-plugin</artifactId>
