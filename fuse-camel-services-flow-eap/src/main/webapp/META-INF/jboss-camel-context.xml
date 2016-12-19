@@ -31,17 +31,15 @@
             <entry key="dataFormat" value="MESSAGE"/>
         </cxf:properties>
     </cxf:cxfEndpoint>
-    <camelContext id="spring-context" xmlns="http://camel.apache.org/schema/spring"
-        xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" 
-        xmlns:ns1="http://monthlyreceipt.services.flow.course.jbossfuse.lv/">
+    <camelContext id="my-flow-spring-context"
+        xmlns="http://camel.apache.org/schema/spring"
+        xmlns:ns1="http://monthlyreceipt.services.flow.course.jbossfuse.lv/" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
         <dataFormats>
             <soapjaxb
                 contextPath="lv.jbossfuse.course.monthlyreceiptservice"
                 elementNameStrategyRef="monthlyReceiptNameStrategy" id="_monthlyreceipt_jaxb"/>
-            <xmljson  
-                forceTopLevelObject="false" trimSpaces="true" 
-                skipNamespaces="true" removeNamespacePrefixes="true" 
-                id="_responseToJSON"/>                
+            <xmljson id="_responseToJSON" removeNamespacePrefixes="true"
+                skipNamespaces="true" trimSpaces="true"/>
         </dataFormats>
         <route id="_route1" streamCache="true">
             <from id="_from1" uri="direct:start"/>
@@ -61,14 +59,14 @@
             <setBody id="_setIDasBody">
                 <simple>${property[id]}</simple>
             </setBody>
-            <convertBodyTo id="_convertBodyTo1" type="lv.jbossfuse.course.monthlyreceiptservice.ListCurrentMonthReceipts"/>            
-            <marshal id="_monthlyreceipt_marshal" ref="_monthlyreceipt_jaxb"/>
+            <convertBodyTo id="_convertBodyTo1" type="lv.jbossfuse.course.monthlyreceiptservice.ListCurrentMonthReceipts"/>
             <!--  TODO: routing -->
+            <marshal id="_monthlyreceipt_marshal" ref="_monthlyreceipt_jaxb"/>
             <to id="_monthly_report" uri="cxf:bean:serviceEndpoint"/>
-            <setBody id="_setBodyToPaiload">            
+            <setBody id="_setBodyToPaiload">
                 <xpath>/soap:Envelope/soap:Body/ns1:listCurrentMonthReceiptsResponse/monthly-receipt</xpath>
             </setBody>
-            <marshal id="_response_to_json" ref="_responseToJSON"/>            
+            <marshal id="_response_to_json" ref="_responseToJSON"/>
         </route>
     </camelContext>
 </beans>
