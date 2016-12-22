@@ -38,7 +38,12 @@ import lv.jbossfuse.course.monthlyreceiptservice.SibNskMonthlyReceiptService;
 public class MyFlowCamelContextTest {
 	
 	private static final String TEST_USER_ID = "ki10105";
+	
+	private static final String INVALID_USER_ID = "ki10106";
 
+	private static final String RECORD_NOT_FOUND_ERROR_RESPONSE = "The phone record '" + INVALID_USER_ID 
+			+ "' is not found";
+	
 	private static final String VALID_JSON_RESPONSE = "{\"month-code\":\"04-2016\",\"service-receipts\":"
 			+ "[{\"@service\":\"0001\",\"#text\":\"10.01\"},{\"@service\":\"0002\",\"#text\":\"15.2\"},"
 			+ "{\"@service\":\"003\",\"#text\":\"-5.2\"}],\"user\":\"ki10105\"}";
@@ -107,5 +112,18 @@ public class MyFlowCamelContextTest {
     			.get();
     	assertEquals(200, response.getStatus());
     	assertEquals(VALID_JSON_RESPONSE, response.readEntity(String.class));
+    }
+    
+    @Test
+    @RunAsClient
+    public void testMyIntegrationServiceOn404() {
+    	String target = properties.getProperty(MY_FLOW_INTEGRATION_SERVICE_ENDPOINT_PROPERTY);
+    	Response response = ClientBuilder.newClient().target(target)
+    			.path(INVALID_USER_ID)
+    			.request()
+    			.accept(MediaType.APPLICATION_JSON)
+    			.get();
+    	assertEquals(404, response.getStatus());
+    	assertEquals(RECORD_NOT_FOUND_ERROR_RESPONSE, response.readEntity(String.class));
     }
 }

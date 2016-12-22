@@ -41,6 +41,15 @@
             <xmljson id="_responseToJSON" removeNamespacePrefixes="true"
                 skipNamespaces="true" trimSpaces="true"/>
         </dataFormats>
+        <onException id="_OnOperationException">
+            <exception>org.apache.camel.component.cxf.CxfOperationException</exception>
+            <setHeader headerName="CamelHttpResponseCode" id="_setResponseCode404">
+                <constant>404</constant>
+            </setHeader>
+            <setBody id="_setResponseFaultBody">
+                <simple>The phone record '${body}' is not found</simple>
+            </setBody>
+        </onException>
         <route id="_route1" streamCache="true">
             <from id="_from1" uri="direct:start"/>
             <setHeader headerName="CamelHttpPath" id="_setHeaderPath">
@@ -53,13 +62,13 @@
             <setProperty id="_setPropertyId" propertyName="id">
                 <jsonpath suppressExceptions="true" trim="true">id</jsonpath>
             </setProperty>
+            <!--  TODO: routing -->
             <setProperty id="_setPropertyId" propertyName="territory">
                 <jsonpath suppressExceptions="true" trim="true">territory</jsonpath>
             </setProperty>
             <setBody id="_setIDasBody">
                 <simple>${property[id]}</simple>
             </setBody>
-            <!--  TODO: routing -->
             <convertBodyTo id="_convertBodyTo1" type="lv.jbossfuse.course.monthlyreceiptservice.ListCurrentMonthReceipts"/>
             <marshal id="_monthlyreceipt_marshal" ref="_monthlyreceipt_jaxb"/>
             <to id="_monthly_report" uri="cxf:bean:serviceEndpoint"/>
