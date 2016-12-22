@@ -11,9 +11,7 @@ The flow is the following:
 `[UserId request]` --> `[PhoneBook RESTFul service]` --> `[MonthlyReceipt SOAP service]` --> `[Convert SOAP to JSON]` 
 --> `[User Data Response]`
 
-Currently, this flow doesn't demonstrate any exception handlings and dynamic routing. These topics are covered by other examples
-contain in this Git repository.
-
+The flow also demonstrates the exception handling mechanism.
 
 ### Prerequisites
 
