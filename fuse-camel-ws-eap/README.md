@@ -100,3 +100,7 @@ This definition may be loaded into a **Soap UI** project. An example project is 
 Apache Camel documentation
 
 http://camel.apache.org/
+
+Pavel Samolysov's Blog (Russian)
+
+http://samolisov.blogspot.com/
